@@ -7,5 +7,15 @@ public class RectangleManager : ScriptableObject
     List<DestructibleRectangle> allRects;
 
 
+    void PlaceRectangle(Vector2 pos)
+    {
+        PlaceRectangle(pos, DestructibleRectangle.defaultSize);
+    }
+
+    void PlaceRectangle(Vector2 pos, float size)
+    {
+        // somehow create and place Destructible
+    }
+
 
 }

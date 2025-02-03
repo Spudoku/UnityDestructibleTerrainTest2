@@ -3,24 +3,30 @@ using UnityEngine;
 public class DestructibleRectangle : MonoBehaviour
 {
     // min and max size in units
-    public static float minSize = 0.025f;
-    public static float defaultSize = 32;
+    public static float minSize = 0.0625f;
+    public static float defaultSize = 8;
+    public static RectangleManager manager;
 
-    Vector2[] vertices;
 
     PolygonCollider2D coll;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        coll = null;
-
-    }
-
-    // Update is called once per frame
-    // void Update()
+    // void Start()
     // {
 
+    //     //coll = BuildCollider(transform.position, defaultSize);
+
     // }
+    public void Initialize()
+    {
+        Initialize(new());
+    }
+
+    void Initialize(Vector2 pos)
+    {
+        BuildCollider(pos, defaultSize);
+    }
+
+
 
     // TODO: communicate with the scene's RectangleManager
     DestructibleRectangle[] Split()
@@ -37,17 +43,23 @@ public class DestructibleRectangle : MonoBehaviour
 
     // builds a collider given size and
     // initial position
-    void BuildCollider(Vector2 initPos, float size)
+    PolygonCollider2D BuildCollider(Vector2 initPos, float size)
     {
         float x = initPos.x;
         float y = initPos.y;
-        Vector2[] points = { new(x + size / 2f, y + size / 2f) };
+        Vector2[] points = { new(x + size / 2f, y + size / 2f),
+        new(x + size / 2f, y - size / 2f),
+        new(x - size / 2f, y - size / 2f),
+        new(x - size / 2f, y + size / 2f),};
+        return BuildCollider(points);
     }
 
 
     // build collider given a list of points
-    void BuildCollider(Vector2[] points)
+    PolygonCollider2D BuildCollider(Vector2[] points)
     {
-
+        PolygonCollider2D newColl = gameObject.AddComponent<PolygonCollider2D>();
+        newColl.points = points;
+        return newColl;
     }
 }
