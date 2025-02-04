@@ -20,11 +20,23 @@ public class ColliderHolder : MonoBehaviour
 
     // }
 
-    void Initialize()
+    public void Initialize()
     {
-        // instantiate default rect
+        Initialize(new(), Rectangle.DEFAULT_SIZE);
+    }
 
+
+
+    public void Initialize(Vector2 middle)
+    {
+        Initialize(middle, Rectangle.DEFAULT_SIZE);
+    }
+
+    public void Initialize(Vector2 middle, float size)
+    {
+        center = middle;
+        rect = new Rectangle(center, size);
         collider = gameObject.AddComponent<PolygonCollider2D>();
-
+        collider.points = rect.vertices;
     }
 }

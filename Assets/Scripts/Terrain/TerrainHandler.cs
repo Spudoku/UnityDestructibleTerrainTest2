@@ -1,6 +1,7 @@
 using UnityEngine;
 
 // the "Mastermind" of all terrain.
+[RequireComponent(typeof(RectangleManager))]
 public class TerrainHandler : MonoBehaviour
 {
     [SerializeField] private RectangleManager rm;
@@ -8,12 +9,19 @@ public class TerrainHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rm = ScriptableObject.CreateInstance<RectangleManager>();
+        rm = GetComponent<RectangleManager>();
+        rm.tm = this;
+        TestRM();
     }
 
-    // Update is called once per frame
-    void Update()
+    void TestRM()
     {
-
+        rm.PlaceCollider(origin, Rectangle.DEFAULT_SIZE);
     }
+
+    // // Update is called once per frame
+    // void Update()
+    // {
+
+    // }
 }
